@@ -54,15 +54,32 @@
   </style>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      // Список цен для доменов
-      const domainPrices = {
-        "algoshark.pro": 449,
-        "whalewatch.live": 349,
-        "viralmind.xyz": 249,
-        "mindshark.xyz": 249,
-        "leaktrade.xyz": 349,
-        "trustchain.online": 299
-        // добавьте другие домены и их цены
+      // Список доменов с их описаниями и ценами
+      const domainInfo = {
+        "algoshark.pro": {
+          price: 449,
+          description: "Aggressive and powerful name, perfect for algo trading, AI bots, or crypto ventures. With 'shark' in the name, it exudes a sense of strength and competitiveness, making it ideal for projects that are looking to dominate their niche in the financial and technological markets. The '.pro' TLD adds a professional touch, making this domain suitable for high-end businesses and platforms."
+        },
+        "whalewatch.live": {
+          price: 349,
+          description: "A unique and engaging name, great for tracking cryptocurrency whale movements in real-time or monitoring market trends. The '.live' TLD offers an immediate, live feed feel, making it perfect for an active platform that updates its users regularly. Whether it's for crypto analytics or market watching, 'whalewatch' is a name that commands attention."
+        },
+        "viralmind.xyz": {
+          price: 249,
+          description: "The ideal domain for projects focusing on AI, media, and viral content. 'Viralmind' evokes creativity, mental agility, and innovative content strategies. It’s perfect for content creators, viral marketing platforms, or AI-driven media analytics tools. The '.xyz' TLD adds a modern, tech-forward appeal, suitable for startups or forward-thinking businesses."
+        },
+        "mindshark.xyz": {
+          price: 249,
+          description: "A fusion of intellect and power, 'Mindshark' is perfect for AI-driven platforms, crypto projects, or any business where intellectual strength and innovation are key. The name resonates with both intelligence and aggressiveness, making it ideal for a wide range of tech startups. The '.xyz' TLD adds to the futuristic vibe, symbolizing a cutting-edge approach."
+        },
+        "leaktrade.xyz": {
+          price: 399,
+          description: "A strong domain name for a whistleblower hub, alpha group, or darknet market concept. 'Leaktrade' suggests a space for secure transactions or discussions involving insider information. It’s ideal for platforms where confidentiality and anonymity are key factors. With the '.xyz' TLD, this name feels innovative and modern, appealing to those interested in cutting-edge, privacy-focused ventures."
+        },
+        "trustchain.online": {
+          price: 299,
+          description: "Perfect for blockchain and cryptocurrency-based businesses, 'Trustchain' emphasizes the importance of security, transparency, and trust. Whether you're building a KYC solution, a decentralized app, or a blockchain platform, this name conveys credibility and professionalism. The '.online' TLD makes it ideal for web-based services, adding an accessible feel to the domain."
+        }
       };
 
       const domainName = window.location.hostname;
@@ -71,12 +88,16 @@
       document.getElementById("selectedDomain").textContent = domainName;  // В попапе
       document.getElementById("cardDomain").textContent = domainName; // На карточке
 
-      // Обновляем цену на карточке
+      // Обновляем описание и цену на карточке
       const priceElement = document.getElementById("cardPrice");
-      if (domainPrices[domainName]) {
-        priceElement.textContent = `$${domainPrices[domainName]}`;
+      const descriptionElement = document.getElementById("cardDescription");
+
+      if (domainInfo[domainName]) {
+        priceElement.textContent = `$${domainInfo[domainName].price}`;
+        descriptionElement.textContent = domainInfo[domainName].description;
       } else {
         priceElement.textContent = "Contact us for pricing"; // Если цена не найдена
+        descriptionElement.textContent = "Description unavailable. Please contact us for more details.";
       }
     });
   </script>
@@ -100,7 +121,7 @@
     <!-- Card 1: Dynamic Domain -->
     <div class="card rounded-2xl p-6 shadow-lg w-full sm:w-1/2 md:w-1/3 relative">
       <h3 class="text-2xl font-semibold mb-2" id="cardDomain">algoshark.pro</h3>
-      <p class="card-description mb-4">Aggressive name for algo trading, crypto, or AI bot ventures.</p>
+      <p class="card-description mb-4" id="cardDescription">Aggressive name for algo trading, crypto, or AI bot ventures.</p>
       <p class="card-price mb-4" id="cardPrice">$449</p> <!-- Цена будет подставляться здесь -->
       <button class="mt-4 bg-white text-black px-4 py-2 rounded-lg font-semibold hover:bg-gray-200 transition" onclick="openPopup(document.getElementById('cardDomain').textContent)">Buy Now</button>
       <!-- Icon -->
@@ -110,16 +131,6 @@
   </div>
 
 </section>
-
-<style>
-  /* Стили для карточек */
-  .card {
-    background-color: #000000;
-    color: white;
-    border-radius: 20px;
-    position: relative;
-  }
-</style>
 
 <!-- Модальное окно -->
 <div id="buyModal" class="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 backdrop-blur-sm hidden">
